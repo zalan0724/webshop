@@ -20,7 +20,6 @@ function Header() {
             <div className={'relative flex justify-end items-center space-x-2'}>
                 <ShoppingCartIcon className={'relative h-10 w-10 text-white stroke-2 cursor-pointer stroke-1 navButton'}/>
             </div>
-
         </div>
     );
 }
