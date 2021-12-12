@@ -12,7 +12,7 @@ const getSlides = () =>{
 export default function MainSlider() {
 
     return (
-        <div className={'flex flex-col h-screen max-w-screen relative overflow-x-hidden overflow-y-auto scroll-snap-y scrollbar-thin scrollbar-thumb-white'}>
+        <div className={'flex flex-col h-screen max-w-screen relative overflow-x-hidden overflow-y-auto snap-y snap-mandatory scrollbar-thin scrollbar-thumb-white'}>
             {getSlides().map(slide => slide)}
         </div>
     );
