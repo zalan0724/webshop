@@ -6,30 +6,29 @@ function capitalizeFirstLetter(string) {
 }
 
 const getAllProducts = () => {
-  return ["Motherboards", "Graphicscards", "Processors", "Memories"];
+  return ["motherboards", "graphicscards", "processors", "memories"];
 };
 
 const getData = async (product) => {
   const products = [];
   const docs = await getDocs(collection(db, capitalizeFirstLetter(product)));
   docs.forEach((product) => {
-    products.push(product.data());
+    products.push({ id: product.id, ...product.data() });
   });
 
   return products;
 };
 
 const getMinMaxPrices = (products) => {
-  const min = Math.min(...products.map((product) => product.price));
-  const max = Math.max(...products.map((product) => product.price));
-  return { min, max };
+  const minPrice = Math.min(...products.map((product) => product.price));
+  const maxPrice = Math.max(...products.map((product) => product.price));
+  return { minPrice, maxPrice };
 };
 
 export default async function handler(req, res) {
   const { product } = req.query;
 
   const products = [];
-  console.log(product);
   if (product === "allproducts") {
     for (const productName of getAllProducts()) {
       products.push(...(await getData(productName)));

@@ -1,16 +1,14 @@
-import Head from 'next/head'
-import MainSlider from "../components/MainSlider";
-
+import Head from 'next/head';
+import MainSlider from '../components/landingPage/MainSlider';
 
 export default function Home() {
-
     return (
         <div className={'bg-white min-h-screen'}>
             <Head>
                 <title>PC Components</title>
-                <link rel="icon" href="/favicon.ico"/>
+                <link rel="icon" href="/favicon.ico" />
             </Head>
-            <MainSlider/>
+            <MainSlider />
         </div>
-    )
+    );
 }
