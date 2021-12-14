@@ -20,12 +20,14 @@ function ProductCard({ product }) {
                                 src={product.link}
                                 layout={'fill'}
                                 quality={50}
-                                priority={false}
+                                priority={true}
                             />
                         </div>
                     </div>
                 </div>
-                <p className={'font-bold text-xl'}>{product.name}</p>
+                <p className={'font-bold text-xl'}>
+                    {product.brand + ' ' + product.name}
+                </p>
                 <p className={'text-lg'}>${product.price}</p>
             </div>
 

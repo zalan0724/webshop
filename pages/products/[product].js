@@ -7,15 +7,20 @@ import FilterProducts from '../../components/productDisplay/FilterProducts';
 
 const fetcher = url => fetch(url).then(res => res.json());
 
-const filterData = (data, minPrice, maxPrice) => {
+const filterData = (data, minPrice, maxPrice, selectedBrands) => {
     return data?.filter(
-        product => product.price >= minPrice && product.price <= maxPrice
+        product =>
+            product.price >= minPrice &&
+            product.price <= maxPrice &&
+            selectedBrands.includes(product.brand)
     );
 };
 
 export default function Product() {
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(0);
+    const [allBrands, setAllBrands] = useState([]);
+    const [selectedBrands, setSelectedBrands] = useState([]);
 
     const router = useRouter();
     const { product } = router.query;
@@ -24,8 +29,10 @@ export default function Product() {
 
     useEffect(() => {
         if (data) {
-            setMinPrice(data[0].minPrice);
-            setMaxPrice(data[0].maxPrice);
+            setMinPrice(data[0].prices.minPrice);
+            setMaxPrice(data[0].prices.maxPrice);
+            setSelectedBrands([...data[0].brands]);
+            setAllBrands([...data[0].brands]);
         }
     }, [data]);
 
@@ -39,11 +46,16 @@ export default function Product() {
                     'grid grid-flow-col px-6 md:px-12 bg-gray-100 h-screen box-border pt-24'
                 }>
                 <FilterProducts
-                    metadata={{ minPrice, maxPrice }}
-                    setters={{ setMinPrice, setMaxPrice }}
+                    metadata={{ minPrice, maxPrice, allBrands, selectedBrands }}
+                    setters={{ setMinPrice, setMaxPrice, setSelectedBrands }}
                 />
                 <ItemDisplay
-                    products={filterData(data?.slice(1), minPrice, maxPrice)}
+                    products={filterData(
+                        data?.slice(1),
+                        minPrice,
+                        maxPrice,
+                        selectedBrands
+                    )}
                 />
             </div>
         </>

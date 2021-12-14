@@ -20,12 +20,13 @@ function CartItem({ product }) {
                     <Image
                         src={product.link}
                         layout={'fill'}
-                        priority={false}
+                        priority={true}
+                        quality={1}
                     />
                 </div>
                 <div className={'flex flex-col justify-center items-start'}>
                     <p className={'font-bold text-black text-lg'}>
-                        {product.name}
+                        {product.brand + ' ' + product.name}
                     </p>
                     <p className={' text-black text-lg'}>${product.price}</p>
                 </div>
