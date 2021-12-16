@@ -3,6 +3,7 @@ import { ChevronDoubleRightIcon } from '@heroicons/react/outline';
 import { closeCart } from '../../features/cart/cartMenuSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import CartItem from './CartItem';
+import { v4 as uuid } from 'uuid';
 
 export default function Cart() {
     const cartItems = useSelector(state => state.cartItems.value);
@@ -46,7 +47,7 @@ export default function Cart() {
                         {cartItems?.map((product, index) => (
                             <CartItem
                                 product={{ index, ...product }}
-                                key={index}
+                                key={uuid()}
                             />
                         ))}
                     </ul>

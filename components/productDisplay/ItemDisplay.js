@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductCard from './ProductCard';
+import { v4 as uuid } from 'uuid';
 
 function ItemDisplay({ products }) {
     return (
@@ -10,8 +11,8 @@ function ItemDisplay({ products }) {
             {!products ? (
                 <p>No items available</p>
             ) : (
-                products?.map((item, index) => (
-                    <ProductCard product={item} key={index} />
+                products?.map(item => (
+                    <ProductCard product={item} key={uuid()} />
                 ))
             )}
         </div>

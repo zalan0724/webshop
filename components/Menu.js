@@ -3,6 +3,7 @@ import { ChevronDoubleLeftIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { closeMenu } from '../features/menu/menuSlice';
+import { v4 as uuid } from 'uuid';
 
 const getProducts = () => {
     return [
@@ -48,13 +49,13 @@ export default function Menu() {
                             All Products
                         </li>
                     </Link>
-                    {getProducts().map((product, index) => {
+                    {getProducts().map(product => {
                         return (
                             <Link
                                 href={`/products/${product
                                     .replace(' ', '')
                                     .toLowerCase()}`}
-                                key={index}>
+                                key={uuid()}>
                                 <li
                                     className={
                                         'navButton md:ml-8 cursor-pointer'
