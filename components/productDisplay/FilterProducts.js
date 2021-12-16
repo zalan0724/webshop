@@ -13,7 +13,7 @@ function FilterProducts({ metadata, setters }) {
     };
 
     return (
-        <div className={'h-full w-72 pb-4 box-border'}>
+        <div className={'h-full w-72 pb-4 box-border hidden lg:flex'}>
             <div
                 className={
                     'flex flex-col h-full w-72 bg-white shadow-lg rounded-2xl p-8'
@@ -26,7 +26,7 @@ function FilterProducts({ metadata, setters }) {
                             <input
                                 type={'number'}
                                 className={'filterInput'}
-                                value={metadata?.minPrice}
+                                value={metadata.minPrice || 0}
                                 onInput={event =>
                                     setters.setMinPrice(event.target.value)
                                 }
@@ -35,7 +35,7 @@ function FilterProducts({ metadata, setters }) {
                             <input
                                 type={'number'}
                                 className={'filterInput'}
-                                value={metadata?.maxPrice}
+                                value={metadata.maxPrice || 0}
                                 onInput={event =>
                                     setters.setMaxPrice(event.target.value)
                                 }

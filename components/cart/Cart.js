@@ -11,69 +11,62 @@ export default function Cart() {
     return (
         <div
             className={
-                'fixed w-screen h-screen bg-black bg-opacity-20 top-0 left-0 z-20'
+                'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 absolute h-screen w-screen z-50 top-0 left-0'
             }>
             <div
                 className={
-                    'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 absolute h-screen w-screen z-20 top-0 left-0'
+                    'h-screen w-full hidden md:flex md:col-span-1 xl:col-span-2 2xl:col-span-3'
+                }
+                onClick={() => dispatch(closeCart())}
+            />
+            <div
+                className={
+                    'flex flex-col justify-between items-center md:items-start w-full h-screen bg-gray-50 p-8 relative text-white'
                 }>
                 <div
                     className={
-                        'h-screen w-full hidden md:flex md:col-span-1 xl:col-span-2 2xl:col-span-3'
-                    }
-                    onClick={() => dispatch(closeCart())}
-                />
-                <div
-                    className={
-                        'flex flex-col justify-between items-center md:items-start w-full h-screen bg-gray-50 p-8 relative text-white'
+                        'flex flex-col justify-start align-start h-full w-full'
                     }>
                     <div
                         className={
-                            'flex flex-col justify-start align-start h-full w-full'
+                            'flex justify-between w-full items-center pb-2 border-b-2 border-b-black'
                         }>
-                        <div
+                        <p className={'text-black text-4xl font-bold'}>Cart</p>
+                        <ChevronDoubleRightIcon
                             className={
-                                'flex justify-between w-full items-center pb-2 border-b-2 border-b-black'
-                            }>
-                            <p className={'text-black text-4xl font-bold'}>
-                                Cart
-                            </p>
-                            <ChevronDoubleRightIcon
-                                className={
-                                    'h-10 w-10 text-black navButton cursor-pointer'
-                                }
-                                onClick={() => dispatch(closeCart())}
-                            />
-                        </div>
-                        <ul
-                            className={
-                                'flex h-full w-full flex-col justify-start items-start overflow-y-auto p-2 gap-2'
-                            }>
-                            {cartItems?.map((product, index) => (
-                                <CartItem
-                                    product={{ index, ...product }}
-                                    key={index}
-                                />
-                            ))}
-                        </ul>
+                                'h-10 w-10 text-black navButton cursor-pointer'
+                            }
+                            onClick={() => dispatch(closeCart())}
+                        />
                     </div>
-                    <div
+                    <ul
                         className={
-                            'flex justify-between border-t-2 border-black w-full text-black pt-2'
+                            'flex h-full w-full flex-col justify-start items-start overflow-y-auto p-2 gap-2 duration-500'
                         }>
-                        <p className={'text-2xl'}>
-                            $
-                            {cartItems
-                                .map(product => product.price)
-                                .reduce((a, b) => a + b, 0)}
-                        </p>
-                        <button
-                            className={
-                                'text-3xl font-bold hover:scale-110 duration-200 ease-out'
-                            }>
-                            Purchase
-                        </button>
-                    </div>
+                        {cartItems?.map((product, index) => (
+                            <CartItem
+                                product={{ index, ...product }}
+                                key={index}
+                            />
+                        ))}
+                    </ul>
+                </div>
+                <div
+                    className={
+                        'flex justify-between border-t-2 border-black w-full text-black pt-2'
+                    }>
+                    <p className={'text-2xl'}>
+                        $
+                        {cartItems
+                            .map(product => product.price)
+                            .reduce((a, b) => a + b, 0)}
+                    </p>
+                    <button
+                        className={
+                            'text-3xl font-bold hover:scale-110 duration-200 ease-out'
+                        }>
+                        Purchase
+                    </button>
                 </div>
             </div>
         </div>

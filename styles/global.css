@@ -37,6 +37,60 @@
     }
 
     .filterInput {
-        @apply w-2/5 border-black border-b-2 focus:outline-0 appearance-none m-0
+        @apply w-2/5 border-black border-b-2 focus:outline-0 m-0
     }
+
+    .productButton {
+        @apply hover:scale-105 duration-200
+    }
+}
+
+body{
+    overflow: hidden;
+}
+
+.menu-enter {
+    transform: translateX(-50%);
+}
+.menu-enter-active {
+    transform: translateX(0);
+    transition: transform ease-out 400ms;
+}
+.menu-exit {
+    transform: translateX(0);
+}
+
+.menu-exit-active {
+    transform: translateX(-50%);
+    transition: transform ease-out 400ms;
+}
+.cart-enter {
+    transform: translateX(50%);
+}
+.cart-enter-active {
+    transform: translateX(0);
+    transition: transform ease-out 400ms;
+}
+.cart-exit {
+    transform: translateX(0);
+}
+
+.cart-exit-active {
+    transform: translateX(50%);
+    transition: transform ease-out 400ms;
+}
+.bgBlack-enter {
+    opacity: 0;
+}
+.bgBlack-enter-active {
+    opacity: .25;
+    transition: ease-out 400ms;
+}
+.bgBlack-exit {
+    opacity: .25;
+}
+
+.bgBlack-exit-active {
+    opacity: 0;
+    transition: ease-out 400ms;
 }
