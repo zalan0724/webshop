@@ -1,4 +1,5 @@
 import React from 'react';
+import BrandChip from './BrandChip';
 
 function FilterProducts({ metadata, setters }) {
     const handleBrandChange = (checked, brand) => {
@@ -18,10 +19,18 @@ function FilterProducts({ metadata, setters }) {
                 className={
                     'flex flex-col h-full w-72 bg-white shadow-lg rounded-2xl p-8'
                 }>
-                <p className={'font-bold text-4xl mb-4'}>FILTER</p>
-                <div className={'flex flex-col px-4'}>
-                    <div className={'my-4'}>
-                        <p className={'text-2xl'}>PRICE</p>
+                <p
+                    className={
+                        'font-light text-[46px] mb-4 leading-none font-exo text-slate-900'
+                    }>
+                    FILTER
+                </p>
+                <div className={'flex flex-col'}>
+                    <section
+                        className={'my-4 py-4 px-2 border-t border-gray-200'}>
+                        <p className={'text-2xl font-quicksand text-slate-800'}>
+                            PRICE
+                        </p>
                         <div className={'flex items-center justify-between'}>
                             <input
                                 type={'number'}
@@ -41,29 +50,30 @@ function FilterProducts({ metadata, setters }) {
                                 }
                             />
                         </div>
-                    </div>
-                    <div className={'my-4'}>
-                        <p className={'text-2xl'}>BRANDS</p>
-                        <ul className={'flex flex-col gap-2 py-2'}>
+                    </section>
+                    <section
+                        className={'my-4 py-4 px-2 border-y border-gray-200'}>
+                        <p className={'text-2xl font-quicksand text-slate-800'}>
+                            BRANDS
+                        </p>
+                        <ul className={'flex flex-row flex-wrap gap-2 py-2'}>
                             {metadata.allBrands?.map((brand, index) => (
-                                <li key={index}>
-                                    <input
-                                        type={'checkbox'}
+                                <li
+                                    key={index}
+                                    className={
+                                        'flex justify-center items-center relative'
+                                    }>
+                                    <BrandChip
                                         checked={metadata.selectedBrands.includes(
                                             brand
                                         )}
-                                        onChange={event =>
-                                            handleBrandChange(
-                                                event.target.checked,
-                                                brand
-                                            )
-                                        }
+                                        brand={brand}
+                                        handleCheckChange={handleBrandChange}
                                     />
-                                    <span>{brand}</span>
                                 </li>
                             ))}
                         </ul>
-                    </div>
+                    </section>
                 </div>
             </div>
         </div>

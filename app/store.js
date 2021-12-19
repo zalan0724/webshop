@@ -1,12 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { menuSlice } from '../features/menu/menuSlice';
-import { cartMenuSlice } from '../features/cart/cartMenuSlice';
 import { cartItemSlice } from '../features/cart/cartItemSlice';
+import { comparedItemsSlice } from '../features/compare/comparedItemsSlice';
 
 export const store = configureStore({
     reducer: {
-        menu: menuSlice.reducer,
-        cart: cartMenuSlice.reducer,
         cartItems: cartItemSlice.reducer,
+        comparedItems: comparedItemsSlice.reducer,
     },
 });

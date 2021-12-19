@@ -22,6 +22,10 @@ module.exports = {
             animation: {
                 hoverUp: 'hoverUp 0.5s ease-out',
             },
+            fontFamily: {
+                quicksand: ['Quicksand'],
+                exo: ['Exo'],
+            },
         },
     },
     plugins: [require('tailwind-scrollbar')],
