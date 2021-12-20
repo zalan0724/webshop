@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../features/cart/cartItemSlice';
-import MoreButton from './MoreButton';
+import { motion } from 'framer-motion';
+import {
+    ArrowDownIcon,
+    InformationCircleIcon,
+    ScaleIcon,
+} from '@heroicons/react/outline';
 
 function ProductCard({ product }) {
     const dispatch = useDispatch();
+
+    const [more, setMore] = useState(false);
+
+    const arrowButtonAnimation = {
+        down: {
+            rotate: 0,
+        },
+        up: {
+            rotate: 180,
+        },
+    };
+
+    const moreButtonsAnimation = {
+        addToCart: {
+            top: 0,
+        },
+        more: {
+            top: '-114%',
+        },
+    };
 
     return (
         <div
@@ -34,17 +59,58 @@ function ProductCard({ product }) {
                 <p className={'text-lg text-slate-700'}>${product.price}</p>
             </div>
 
-            <div className={'flex flex-shrink w-full gap-x-4'}>
-                <button
+            <div className={'flex justify-end w-full h-14 gap-x-4 relative'}>
+                <div
                     className={
-                        'w-full h-14 border-black border-2 rounded-lg text-black font-light text-lg bg-white shadow-md productButton font-quicksand'
+                        'overflow-hidden relative w-full h-14 box-border'
+                    }>
+                    <motion.div
+                        className={
+                            'absolute flex flex-wrap h-16 box-border w-full'
+                        }
+                        variants={moreButtonsAnimation}
+                        animate={more ? 'more' : 'addToCart'}
+                        transition={{ duration: 0.2, ease: 'easeOut' }}>
+                        <button
+                            className={
+                                'relative w-full h-14 border-black border-2 rounded-xl text-black font-light text-lg bg-white shadow-md duration-200 hover:bg-black hover:text-white font-quicksand mb-2'
+                            }
+                            onClick={() => {
+                                dispatch(addItem({ ...product }));
+                            }}>
+                            Add to Cart
+                        </button>
+                        <div
+                            className={
+                                'relative flex h-14 w-full justify-around'
+                            }>
+                            <button
+                                className={
+                                    'flex w-14 h-10 m-2 box-border rounded-lg bg-black productButton items-center justify-center'
+                                }>
+                                <InformationCircleIcon
+                                    className={'h-3/5 text-white'}
+                                />
+                            </button>
+                            <button
+                                className={
+                                    'flex w-14 h-10 m-2 box-border rounded-lg bg-black productButton items-center justify-center'
+                                }>
+                                <ScaleIcon className={'h-3/5 text-white'} />
+                            </button>
+                        </div>
+                    </motion.div>
+                </div>
+                <motion.button
+                    variants={arrowButtonAnimation}
+                    animate={more ? 'up' : 'down'}
+                    transition={{ duration: 0.1, ease: 'easeOut' }}
+                    className={
+                        'h-full rounded-lg bg-white text-black font-light duration-200 hover:scale-110 relative'
                     }
-                    onClick={() => {
-                        dispatch(addItem({ ...product }));
-                    }}>
-                    Add to Cart
-                </button>
-                <MoreButton />
+                    onClick={() => setMore(!more)}>
+                    <ArrowDownIcon className={'h-3/5'} />
+                </motion.button>
             </div>
         </div>
     );
