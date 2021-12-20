@@ -17,15 +17,9 @@ function Layout({ children }) {
         },
     };
 
-    const openSide = openCallback => {
-        document.body.style.overflow = 'hidden';
-        openCallback(true);
-    };
-    const closeSide = (closeCallback, duration) => {
-        closeCallback(false);
-        setTimeout(() => {
-            document.body.style.overflow = 'auto';
-        }, duration * 1.5);
+    const closeSides = () => {
+        setCartOpen(false);
+        setMenuOpen(false);
     };
 
     return (
@@ -40,19 +34,18 @@ function Layout({ children }) {
                         animate={'visible'}
                         exit={'hidden'}
                         transition={{ duration: 0.3, ease: 'easeOut' }}>
-                        <div className={'w-screen h-screen bg-black'} />
+                        <div
+                            className={'w-screen h-screen bg-black'}
+                            onClick={closeSides}
+                        />
                     </motion.div>
                 )}
             </AnimatePresence>
             <AnimatePresence>
-                {menuOpen && (
-                    <Menu closeMenu={() => closeSide(setMenuOpen, 200)} />
-                )}
+                {menuOpen && <Menu closeMenu={closeSides} />}
             </AnimatePresence>
             <AnimatePresence>
-                {cartOpen && (
-                    <Cart closeCart={() => closeSide(setCartOpen, 200)} />
-                )}
+                {cartOpen && <Cart closeCart={closeSides} />}
             </AnimatePresence>
             {children}
         </>

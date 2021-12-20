@@ -18,7 +18,7 @@ const getProducts = () => {
 export default function Menu({ closeMenu }) {
     const menuAnimation = {
         hidden: {
-            x: '-50%',
+            x: '-100%',
         },
         visible: {
             x: '0',
@@ -27,7 +27,9 @@ export default function Menu({ closeMenu }) {
 
     return (
         <motion.div
-            className={'fixed top-0 z-30'}
+            className={
+                'fixed top-0 left-0 z-30 w-screen md:w-1/2 xl:w-1/3 h-screen'
+            }
             variants={menuAnimation}
             initial={'hidden'}
             animate={'visible'}
@@ -37,64 +39,57 @@ export default function Menu({ closeMenu }) {
                 ease: 'easeOut',
             }}>
             <div
-                className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 relative h-screen w-screen`}>
+                className={`flex flex-col justify-center items-center md:items-start h-screen w-full bg-black p-12 relative text-white `}>
                 <div
-                    className={`flex flex-col justify-center items-center md:items-start h-screen w-full bg-black p-12 relative text-white `}>
-                    <div
-                        className={
-                            'flex relative w-full justify-end items-center'
-                        }>
-                        <ChevronDoubleLeftIcon
-                            className={'h-10 w-10 navButton cursor-pointer'}
-                            onClick={closeMenu}
-                        />
-                    </div>
-                    <ul
-                        className={
-                            'flex w-full h-full justify-start flex-col items-center md:items-start text-2xl font-bold space-y-8'
-                        }>
-                        <Link href={'/'}>
-                            <li
-                                className={'cursor-pointer navButton'}
-                                onClick={closeMenu}>
-                                Home
-                            </li>
-                        </Link>
-                        <Link href={'/products/allproducts'}>
-                            <li
-                                className={'cursor-pointer navButton'}
-                                onClick={closeMenu}>
-                                All Products
-                            </li>
-                        </Link>
-                        {getProducts().map(product => {
-                            return (
-                                <Link
-                                    href={`/products/${product
-                                        .replace(' ', '')
-                                        .toLowerCase()}`}
-                                    key={uuid()}>
-                                    <li
-                                        className={
-                                            'navButton md:ml-8 cursor-pointer'
-                                        }
-                                        onClick={closeMenu}>
-                                        {product}
-                                    </li>
-                                </Link>
-                            );
-                        })}
-                    </ul>
-                    <p className={'text-4xl font-light cursor-pointer'}>
-                        LOGIN
-                    </p>
+                    className={'flex relative w-full justify-end items-center'}>
+                    <ChevronDoubleLeftIcon
+                        className={'h-10 w-10 navButton cursor-pointer'}
+                        onClick={closeMenu}
+                    />
                 </div>
-                <div
+                <ul
                     className={
-                        'h-screen w-full md:flex hidden md:col-span-1 xl:col-span-2 2xl:col-span-3 shadow-md'
-                    }
-                    onClick={closeMenu}
-                />
+                        'flex w-full h-full justify-start flex-col items-center md:items-start text-2xl font-bold space-y-8'
+                    }>
+                    <Link href={'/'}>
+                        <li
+                            className={
+                                'cursor-pointer navButton font-exo font-medium'
+                            }
+                            onClick={closeMenu}>
+                            Home
+                        </li>
+                    </Link>
+                    <Link href={'/products/allproducts'}>
+                        <li
+                            className={
+                                'cursor-pointer navButton font-exo font-medium'
+                            }
+                            onClick={closeMenu}>
+                            All Products
+                        </li>
+                    </Link>
+                    {getProducts().map(product => {
+                        return (
+                            <Link
+                                href={`/products/${product
+                                    .replace(' ', '')
+                                    .toLowerCase()}`}
+                                key={uuid()}>
+                                <li
+                                    className={
+                                        'navButton md:ml-8 cursor-pointer font-exo font-light'
+                                    }
+                                    onClick={closeMenu}>
+                                    {product}
+                                </li>
+                            </Link>
+                        );
+                    })}
+                </ul>
+                <p className={'text-4xl font-light cursor-pointer font-exo'}>
+                    LOGIN
+                </p>
             </div>
         </motion.div>
     );

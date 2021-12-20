@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }) {
                     rel="stylesheet"
                 />
                 <link
-                    href="https://fonts.googleapis.com/css2?family=Exo:wght@300;900&display=swap"
+                    href="https://fonts.googleapis.com/css2?family=Exo:wght@300;500;600;900&display=swap"
                     rel="stylesheet"
                 />
             </Head>
