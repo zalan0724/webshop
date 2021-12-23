@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Menu from './Menu';
 import Cart from './cart/Cart';
 import { motion, AnimatePresence } from 'framer-motion';
+import Popup from './Popup';
+import { useSelector } from 'react-redux';
+import { getPopupMessage } from '../features/popup/popupSlice';
 
 function Layout({ children }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [cartOpen, setCartOpen] = useState(false);
+    const [popupOpen, setPopupOpen] = useState(false);
+    const message = useSelector(getPopupMessage);
 
     const backDrop = {
         hidden: {
@@ -21,6 +26,13 @@ function Layout({ children }) {
         setCartOpen(false);
         setMenuOpen(false);
     };
+
+    useEffect(() => {
+        if (!popupOpen && message.messageCount !== 0) {
+            setPopupOpen(true);
+            setTimeout(() => setPopupOpen(false), 4000);
+        }
+    }, [message.messageCount]);
 
     return (
         <>
@@ -46,6 +58,9 @@ function Layout({ children }) {
             </AnimatePresence>
             <AnimatePresence>
                 {cartOpen && <Cart closeCart={closeSides} />}
+            </AnimatePresence>
+            <AnimatePresence>
+                {popupOpen && <Popup message={message.message} />}
             </AnimatePresence>
             {children}
         </>

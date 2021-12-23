@@ -54,7 +54,7 @@ export default function Menu({ closeMenu }) {
                     <Link href={'/'}>
                         <li
                             className={
-                                'cursor-pointer navButton font-exo font-medium'
+                                'cursor-pointer navButton font-exo font-medium text-3xl'
                             }
                             onClick={closeMenu}>
                             Home
@@ -63,10 +63,10 @@ export default function Menu({ closeMenu }) {
                     <Link href={'/products/allproducts'}>
                         <li
                             className={
-                                'cursor-pointer navButton font-exo font-medium'
+                                'cursor-pointer navButton font-exo font-medium text-3xl'
                             }
                             onClick={closeMenu}>
-                            All Products
+                            All products
                         </li>
                     </Link>
                     {getProducts().map(product => {

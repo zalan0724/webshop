@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../features/cart/cartItemSlice';
+import { addMessage } from '../../features/popup/popupSlice';
 import { motion } from 'framer-motion';
 import {
     ArrowDownIcon,
@@ -13,6 +14,11 @@ function ProductCard({ product }) {
     const dispatch = useDispatch();
 
     const [more, setMore] = useState(false);
+
+    const addItemToCart = item => {
+        dispatch(addItem({ ...item }));
+        dispatch(addMessage('Item added to the cart!'));
+    };
 
     const arrowButtonAnimation = {
         down: {
@@ -76,7 +82,7 @@ function ProductCard({ product }) {
                                 'relative w-full h-14 border-black border-2 rounded-xl text-black font-light text-lg bg-white shadow-md duration-200 hover:bg-black hover:text-white font-quicksand mb-2'
                             }
                             onClick={() => {
-                                dispatch(addItem({ ...product }));
+                                addItemToCart({ ...product });
                             }}>
                             Add to Cart
                         </button>
