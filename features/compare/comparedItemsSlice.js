@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import product from '../../pages/products/details/[product]';
 
 export const comparedItemsSlice = createSlice({
     name: 'comparedItems',
@@ -7,19 +6,21 @@ export const comparedItemsSlice = createSlice({
         products: [],
     },
     reducers: {
-        addItem: (state, action) => {
-            if (product.length < 3) state.products.push(action.payload);
-            else if (product.length >= 3)
-                state.products = [...state.products.slice[1], action.payload];
+        addToCompare: (state, action) => {
+            if (state.products.length < 3) state.products.push(action.payload);
+            else if (state.products.length >= 3)
+                state.products = [...state.products.slice(1), action.payload];
         },
-        removeItem: (state, action) => {
+        removeFromCompare: (state, action) => {
             state.products.splice(action.payload, 1);
         },
     },
 });
 
-export const { addItem, removeItem } = comparedItemsSlice.actions;
+export const { addToCompare, removeFromCompare } = comparedItemsSlice.actions;
 
 export const getComparedItems = state => state.comparedItems.products;
+export const getComparedItemsLength = state =>
+    state.comparedItems.products.length;
 
 export default comparedItemsSlice.reducer;

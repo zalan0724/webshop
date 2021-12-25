@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../../features/cart/cartItemSlice';
+import { addToCart } from '../../features/cart/cartItemSlice';
+import { addToCompare } from '../../features/compare/comparedItemsSlice';
 import { addMessage } from '../../features/popup/popupSlice';
 import { motion } from 'framer-motion';
 import {
@@ -16,8 +17,13 @@ function ProductCard({ product }) {
     const [more, setMore] = useState(false);
 
     const addItemToCart = item => {
-        dispatch(addItem({ ...item }));
-        dispatch(addMessage('Item added to the cart!'));
+        dispatch(addToCart({ ...item }));
+        dispatch(addMessage('Item added to the cart'));
+    };
+
+    const addItemToCompare = item => {
+        dispatch(addToCompare({ ...item }));
+        dispatch(addMessage('Item added to compare'));
     };
 
     const arrowButtonAnimation = {
@@ -101,7 +107,10 @@ function ProductCard({ product }) {
                             <button
                                 className={
                                     'flex w-14 h-10 m-2 box-border rounded-lg bg-black productButton items-center justify-center'
-                                }>
+                                }
+                                onClick={() => {
+                                    addItemToCompare({ ...product });
+                                }}>
                                 <ScaleIcon className={'h-3/5 text-white'} />
                             </button>
                         </div>

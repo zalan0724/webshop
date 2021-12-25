@@ -9,11 +9,17 @@ const getAllProducts = () => {
     return ['motherboards', 'graphicscards', 'processors', 'memories'];
 };
 
-const getData = async product => {
+const getData = async productType => {
     const products = [];
-    const docs = await getDocs(collection(db, capitalizeFirstLetter(product)));
+    const docs = await getDocs(
+        collection(db, capitalizeFirstLetter(productType))
+    );
     docs.forEach(product => {
-        products.push({ id: product.id, ...product.data() });
+        products.push({
+            id: product.id,
+            collection: productType,
+            ...product.data(),
+        });
     });
 
     return products;
