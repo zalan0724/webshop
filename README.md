@@ -3,7 +3,7 @@
 It's a webshop built with Next.js, Tailwindcss and Redux. 
 Firebase is used for storing data.
 
-## star2:Main features:star2:
+## :star2:Main features:star2:
 - Products are rendered and filtered dinamically 
 - Products can be put to cart
 - Parts can be compared with each other (max 3)
