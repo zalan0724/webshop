@@ -1,8 +1,11 @@
 import React from 'react';
 import { ChevronDoubleLeftIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
+import Image from 'next/image';
 import { v4 as uuid } from 'uuid';
 import { motion } from 'framer-motion';
+import { useSession, signOut } from 'next-auth/react';
+import axios from 'axios';
 
 const getProducts = () => {
     return [
@@ -16,6 +19,13 @@ const getProducts = () => {
 };
 
 export default function Menu({ closeMenu }) {
+    const { data: session } = useSession();
+
+    if (session)
+        axios
+            .get('/api/user/' + session.user.id)
+            .then(res => console.log(res.data));
+
     const menuAnimation = {
         hidden: {
             x: '-100%',
@@ -87,9 +97,38 @@ export default function Menu({ closeMenu }) {
                         );
                     })}
                 </ul>
-                <p className={'text-4xl font-light cursor-pointer font-exo'}>
-                    LOGIN
-                </p>
+                {session ? (
+                    <div
+                        className={
+                            'flex items-center justify-start gap-x-2 cursor-pointer'
+                        }
+                        onClick={() => signOut()}>
+                        <div
+                            className={
+                                'relative aspect-square w-8 rounded-full'
+                            }>
+                            <Image
+                                src={session.user.image}
+                                layout={'fill'}
+                                priority={true}
+                                className={'rounded-full'}
+                            />
+                        </div>
+                        <p className={'text-2xl font-light font-exo'}>
+                            {session.user.name}
+                        </p>
+                    </div>
+                ) : (
+                    <Link href={'/auth/signin'}>
+                        <p
+                            className={
+                                'text-4xl font-light cursor-pointer font-exo'
+                            }
+                            onClick={closeMenu}>
+                            LOGIN
+                        </p>
+                    </Link>
+                )}
             </div>
         </motion.div>
     );

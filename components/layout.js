@@ -4,14 +4,20 @@ import Menu from './Menu';
 import Cart from './cart/Cart';
 import { motion, AnimatePresence } from 'framer-motion';
 import Popup from './Popup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPopupMessage } from '../features/popup/popupSlice';
+import { setCart } from '../features/cart/cartItemSlice';
+import { useSession } from 'next-auth/react';
+import axios from 'axios';
 
 function Layout({ children }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [cartOpen, setCartOpen] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
     const message = useSelector(getPopupMessage);
+
+    const { data: session } = useSession();
+    const dispatch = useDispatch();
 
     const backDrop = {
         hidden: {
@@ -33,6 +39,13 @@ function Layout({ children }) {
             setTimeout(() => setPopupOpen(false), 4000);
         }
     }, [message.messageCount]);
+
+    useEffect(async () => {
+        if (session) {
+            const cloudData = await axios.get(`/api/user/${session.user.id}`);
+            dispatch(setCart(cloudData.data.cart));
+        }
+    }, [session]);
 
     return (
         <>

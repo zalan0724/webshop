@@ -21,7 +21,6 @@ const getData = async productType => {
             ...product.data(),
         });
     });
-
     return products;
 };
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { ChevronDoubleRightIcon } from '@heroicons/react/outline';
-import { useSelector } from 'react-redux';
 import CartItem from './CartItem';
 import { v4 as uuid } from 'uuid';
-import { getProducts } from '../../features/cart/cartItemSlice';
 import { motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
+import { getProducts } from '../../features/cart/cartItemSlice';
 
 export default function Cart({ closeCart }) {
     const cartItems = useSelector(getProducts);
@@ -50,7 +50,7 @@ export default function Cart({ closeCart }) {
                     </div>
                     <ul
                         className={
-                            'flex h-full w-full flex-col justify-start items-start overflow-y-auto p-2 gap-2 duration-500'
+                            'flex h-full w-full flex-col justify-start items-start overflow-y-auto p-2 gap-2 duration-500 scrollbar-thin scrollbar-rounded scrollbar-thumb-gray-700'
                         }>
                         {cartItems?.map((product, index) => (
                             <CartItem

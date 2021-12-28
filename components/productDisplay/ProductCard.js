@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../../features/cart/cartItemSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    addToCart,
+    getProducts,
+    setCart,
+} from '../../features/cart/cartItemSlice';
 import { addToCompare } from '../../features/compare/comparedItemsSlice';
 import { addMessage } from '../../features/popup/popupSlice';
 import { motion } from 'framer-motion';
@@ -10,14 +14,25 @@ import {
     InformationCircleIcon,
     ScaleIcon,
 } from '@heroicons/react/outline';
+import { useSession } from 'next-auth/react';
+import axios from 'axios';
 
 function ProductCard({ product }) {
     const dispatch = useDispatch();
+    const { data: session } = useSession();
+    const cart = useSelector(getProducts);
 
     const [more, setMore] = useState(false);
 
-    const addItemToCart = item => {
-        dispatch(addToCart({ ...item }));
+    const addItemToCart = async item => {
+        if (session) {
+            const cloudData = await axios.put(`/api/user/${session.user.id}`, {
+                cart: [...cart, item],
+            });
+            dispatch(setCart(cloudData.data.cart));
+        } else {
+            dispatch(addToCart(item));
+        }
         dispatch(addMessage('Item added to the cart'));
     };
 
@@ -87,8 +102,8 @@ function ProductCard({ product }) {
                             className={
                                 'relative w-full h-14 border-black border-2 rounded-xl text-black font-light text-lg bg-white shadow-md duration-200 hover:bg-black hover:text-white font-quicksand mb-2'
                             }
-                            onClick={() => {
-                                addItemToCart({ ...product });
+                            onClick={async () => {
+                                await addItemToCart({ ...product });
                             }}>
                             Add to Cart
                         </button>
