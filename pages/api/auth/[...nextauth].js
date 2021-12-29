@@ -13,6 +13,7 @@ export default NextAuth({
     pages: {
         signIn: '/auth/signin',
     },
+    secret: 'exrthYGZWbUEiLpFWVne',
     callbacks: {
         async session({ session, token }) {
             const emptyData = {
