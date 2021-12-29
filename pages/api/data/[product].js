@@ -39,16 +39,20 @@ export default async function handler(req, res) {
     const { product } = req.query;
 
     const products = [];
-    if (product === 'allproducts') {
-        for (const productName of getAllProducts()) {
-            products.push(...(await getData(productName)));
+    try {
+        if (product === 'allproducts') {
+            for (const productName of getAllProducts()) {
+                products.push(...(await getData(productName)));
+            }
+        } else {
+            products.push(...(await getData(product)));
         }
-    } else {
-        products.push(...(await getData(product)));
+        const metadata = {
+            prices: { ...getMinMaxPrices(products) },
+            brands: [...getBrandNames(products)],
+        };
+        res.status(200).json([metadata, ...products]);
+    } catch (error) {
+        console.log(error);
     }
-    const metadata = {
-        prices: { ...getMinMaxPrices(products) },
-        brands: [...getBrandNames(products)],
-    };
-    res.status(200).json([metadata, ...products]);
 }
