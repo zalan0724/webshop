@@ -1,5 +1,4 @@
-import { db } from '/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { db } from '/utils/db/index';
 
 function capitalizeFirstLetter(string) {
     return string[0].toUpperCase() + string.slice(1);
@@ -11,16 +10,8 @@ const getAllProducts = () => {
 
 const getData = async productType => {
     const products = [];
-    const docs = await getDocs(
-        collection(db, capitalizeFirstLetter(productType))
-    );
-    docs.forEach(product => {
-        products.push({
-            id: product.id,
-            collection: productType,
-            ...product.data(),
-        });
-    });
+    const docs = await db.collection(capitalizeFirstLetter(productType)).get();
+    docs.forEach(doc => products.push({ id: doc.id, ...doc.data() }));
     return products;
 };
 
