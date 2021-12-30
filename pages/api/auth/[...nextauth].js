@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { getDoc, setDoc, doc } from 'firebase/firestore';
-import { db } from '../../../firebase';
+import { db } from '../../../utils/db/index';
 
 export default NextAuth({
     providers: [
@@ -23,15 +22,18 @@ export default NextAuth({
             };
 
             session.user.id = token.sub;
-
-            const docRef = doc(db, 'Users', token.sub);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                const cloudData = docSnap.data();
-                session.user.cloudData = { ...cloudData };
-            } else {
-                await setDoc(docRef, emptyData);
-                session.user.cloudData = { ...emptyData };
+            try {
+                const docRef = db.collection('Users').doc(token.sub);
+                docRef.get().then(doc => {
+                    if (!doc.exists) {
+                        docRef.set({ ...emptyData });
+                        session.user.cloudData = { ...emptyData };
+                    } else {
+                        session.user.cloudData = { ...doc.data() };
+                    }
+                });
+            } catch (e) {
+                session.user.cloudData = {};
             }
 
             return session;

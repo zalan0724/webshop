@@ -1,4 +1,4 @@
-import { db } from '/utils/db/index';
+import { db } from '../../../utils/db/index';
 
 function capitalizeFirstLetter(string) {
     return string[0].toUpperCase() + string.slice(1);
