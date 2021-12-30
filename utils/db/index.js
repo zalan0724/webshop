@@ -17,7 +17,7 @@ const serviceAccount = {
 const app = admin.apps.length
     ? admin.app
     : admin.initializeApp({
-          credential: admin.credential.cert(serviceAccount),
+          credential: admin.credential.cert(JSON.stringify(serviceAccount)),
       });
 
 const db = admin.firestore();
