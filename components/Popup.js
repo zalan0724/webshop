@@ -21,7 +21,7 @@ function Popup({ message }) {
     return (
         <motion.div
             className={
-                'flex justify-center items-center absolute justify-self-center bg-white md:bg-transparent bottom-0 h-20 p-4 w-screen z-10'
+                'flex justify-center items-center absolute justify-self-center bg-transparent bottom-0 h-20 p-4 w-screen z-10'
             }
             variants={popupAnimation}
             initial={'hidden'}
@@ -30,7 +30,7 @@ function Popup({ message }) {
             transition={{ duration: 0.3, ease: 'easeOut' }}>
             <div
                 className={
-                    'flex justify-center items-center h-full h-92 bg-white rounded-full p-2 m-2 md:shadow-lg border box-border border-gray-100'
+                    'flex justify-center items-center w-full md:w-96 bg-white rounded-full p-2 m-2 md:shadow-lg border box-border border-gray-100'
                 }>
                 {message}
             </div>

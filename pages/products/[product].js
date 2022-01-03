@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
 import ItemDisplay from '../../components/productDisplay/ItemDisplay';
 import Head from 'next/head';
 import FilterProducts from '../../components/productDisplay/FilterProducts';
-
-const fetcher = url => fetch(url).then(res => res.json());
 
 const filterData = (data, minPrice, maxPrice, selectedBrands) => {
     return data?.filter(
@@ -16,7 +13,7 @@ const filterData = (data, minPrice, maxPrice, selectedBrands) => {
     );
 };
 
-export default function Product() {
+export default function Product({ data }) {
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(0);
     const [allBrands, setAllBrands] = useState([]);
@@ -25,14 +22,12 @@ export default function Product() {
     const router = useRouter();
     const { product } = router.query;
 
-    const { data, error } = useSWR(`/api/data/${product}`, fetcher);
-
     useEffect(() => {
         if (data) {
-            setMinPrice(data[0].prices.minPrice);
-            setMaxPrice(data[0].prices.maxPrice);
-            setSelectedBrands([...data[0].brands]);
-            setAllBrands([...data[0].brands]);
+            setMinPrice(data.metadata.prices.minPrice);
+            setMaxPrice(data.metadata.prices.maxPrice);
+            setSelectedBrands([...data.metadata.brands]);
+            setAllBrands([...data.metadata.brands]);
         }
     }, [data]);
 
@@ -40,6 +35,7 @@ export default function Product() {
         <>
             <Head>
                 <title>{product}</title>
+                <meta name="theme-color" content="#FFFFFF" />
             </Head>
             <div
                 className={
@@ -51,7 +47,7 @@ export default function Product() {
                 />
                 <ItemDisplay
                     products={filterData(
-                        data?.slice(1),
+                        data?.products,
                         minPrice,
                         maxPrice,
                         selectedBrands
@@ -60,4 +56,17 @@ export default function Product() {
             </div>
         </>
     );
+}
+
+export async function getServerSideProps({ params }) {
+    const res = await fetch(
+        process.env.NEXTAUTH_URL + '/api/data/' + params.product
+    );
+    const data = await res.json();
+
+    return {
+        props: {
+            data,
+        },
+    };
 }

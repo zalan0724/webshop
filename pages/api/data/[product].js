@@ -42,9 +42,8 @@ export default async function handler(req, res) {
             prices: { ...getMinMaxPrices(products) },
             brands: [...getBrandNames(products)],
         };
-        res.status(200).json([metadata, ...products]);
+        res.status(200).json({ metadata, products: [...products] });
     } catch (error) {
-        console.log(error);
         res.status(400).end();
     }
 }
