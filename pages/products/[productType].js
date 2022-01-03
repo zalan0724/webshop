@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import ItemDisplay from '../../components/productDisplay/ItemDisplay';
+import ProductList from '../../components/productsPage/ProductList';
 import Head from 'next/head';
-import FilterProducts from '../../components/productDisplay/FilterProducts';
+import FilterProducts from '../../components/productsPage/FilterProducts';
 import useSWR from 'swr';
+import axios from 'axios';
 
 const filterData = (data, minPrice, maxPrice, selectedBrands) => {
     return data?.filter(
@@ -14,18 +15,17 @@ const filterData = (data, minPrice, maxPrice, selectedBrands) => {
     );
 };
 
-const fetcher = url => fetch(url).then(res => res.json());
-
-export default function Product() {
+export default function ProductType() {
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(0);
     const [allBrands, setAllBrands] = useState([]);
     const [selectedBrands, setSelectedBrands] = useState([]);
 
     const router = useRouter();
-    const { product } = router.query;
+    const { productType } = router.query;
 
-    const { data, error } = useSWR(`/api/data/${product}`, fetcher);
+    const fetcher = url => axios.get(url).then(res => res.data);
+    const { data, error } = useSWR(`/api/products/${productType}`, fetcher);
 
     useEffect(() => {
         if (data) {
@@ -39,7 +39,7 @@ export default function Product() {
     return (
         <>
             <Head>
-                <title>{product}</title>
+                <title>{productType}</title>
                 <meta name="theme-color" content="#FFFFFF" />
             </Head>
             <div
@@ -50,7 +50,7 @@ export default function Product() {
                     metadata={{ minPrice, maxPrice, allBrands, selectedBrands }}
                     setters={{ setMinPrice, setMaxPrice, setSelectedBrands }}
                 />
-                <ItemDisplay
+                <ProductList
                     products={filterData(
                         data?.products,
                         minPrice,

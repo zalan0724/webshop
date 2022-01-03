@@ -9,6 +9,7 @@ const formatGraphicscardData = product => {
         'Mini Display Ports': product.minidisplay || 0,
         TDP: product.tdp,
         Price: '$ ' + product.price,
+        Link: product.link,
     };
 };
 
@@ -18,6 +19,7 @@ const formatMotherboardData = product => {
         Form: product.form,
         Socket: product.socket,
         Price: '$ ' + product.price,
+        Link: product.link,
     };
 };
 
@@ -28,6 +30,7 @@ const formatMemoryData = product => {
         'Core Clock': product.base + ' MHz',
         Type: product.type,
         Price: '$ ' + product.price,
+        Link: product.link,
     };
 };
 
@@ -41,6 +44,7 @@ const formatProcessorData = product => {
         Socket: product.socket,
         Size: product.size + ' nm',
         Price: '$ ' + product.price,
+        Link: product.link,
     };
 };
 

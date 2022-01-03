@@ -25,8 +25,8 @@ export default async function handler(req, res) {
         } else if (req.method === 'DELETE') {
             await docRef.delete();
             res.status(200).end();
-        }
+        } else res.status(400).end();
     } catch (e) {
-        res.status(400).end();
+        res.status(500).end();
     }
 }

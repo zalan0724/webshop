@@ -22,7 +22,7 @@ function Compare() {
                         'flex justify-center items-center w-full h-full bg-white p-8 box-border rounded-lg overflow-auto shadow-lg'
                     }>
                     {products.length === 0 ? (
-                        'No product selected'
+                        'No details selected'
                     ) : (
                         <Table products={products} />
                     )}

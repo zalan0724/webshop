@@ -42,6 +42,7 @@ function Table({ products }) {
                                 <Image
                                     src={product.link}
                                     layout={'fill'}
+                                    alt={product.id}
                                     priority={true}
                                 />
                             </div>

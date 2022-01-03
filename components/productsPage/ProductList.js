@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import loading from '/assets/loading.svg';
 import Image from 'next/image';
 
-function ItemDisplay({ products }) {
+function ProductList({ products }) {
     return (
         <div
             className={
@@ -27,4 +27,4 @@ function ItemDisplay({ products }) {
     );
 }
 
-export default ItemDisplay;
+export default ProductList;

@@ -16,11 +16,16 @@ import {
 } from '@heroicons/react/outline';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 function ProductCard({ product }) {
     const dispatch = useDispatch();
     const { data: session } = useSession();
     const cart = useSelector(getProducts);
+
+    const router = useRouter();
+    const { productType } = router.query;
 
     const [more, setMore] = useState(false);
 
@@ -64,27 +69,32 @@ function ProductCard({ product }) {
             className={
                 'flex flex-col justify-between items-start w-64 h-80 bg-white relative p-4 shadow-lg rounded-2xl hover:shadow-2xl duration-200 cursor-pointer box-border mt-24 animate-hoverUp'
             }>
-            <div className={'relative h-full w-full'}>
-                <div
-                    className={
-                        'relative flex justify-center w-full h-20 select-none'
-                    }>
-                    <div className={'absolute w-4/5 aspect-square -top-28'}>
-                        <div className={'relative h-full w-full'}>
-                            <Image
-                                src={product.link}
-                                layout={'fill'}
-                                quality={50}
-                                priority={true}
-                            />
+            <Link href={`/details/${productType}/${product.id}`}>
+                <div className={'relative h-full w-full'}>
+                    <div
+                        className={
+                            'relative flex justify-center w-full h-20 select-none'
+                        }>
+                        <div className={'absolute w-4/5 aspect-square -top-28'}>
+                            <div className={'relative h-full w-full'}>
+                                <Image
+                                    src={product.link}
+                                    layout={'fill'}
+                                    quality={50}
+                                    priority={true}
+                                />
+                            </div>
                         </div>
                     </div>
+                    <p
+                        className={
+                            'font-extrabold text-xl text-slate-800 font-exo'
+                        }>
+                        {product.brand + ' ' + product.name}
+                    </p>
+                    <p className={'text-lg text-slate-700'}>${product.price}</p>
                 </div>
-                <p className={'font-extrabold text-xl text-slate-800 font-exo'}>
-                    {product.brand + ' ' + product.name}
-                </p>
-                <p className={'text-lg text-slate-700'}>${product.price}</p>
-            </div>
+            </Link>
 
             <div className={'flex justify-end w-full h-14 gap-x-4 relative'}>
                 <div

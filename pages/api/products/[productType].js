@@ -27,23 +27,28 @@ const getBrandNames = products => {
 };
 
 export default async function handler(req, res) {
-    const { product } = req.query;
+    const { productType } = req.query;
 
-    const products = [];
-    try {
-        if (product === 'allproducts') {
-            for (const productName of getAllProducts()) {
-                products.push(...(await getData(productName)));
+    if (req.method === 'GET') {
+        try {
+            const products = [];
+
+            if (productType === 'allproducts') {
+                for (const productName of getAllProducts()) {
+                    products.push(...(await getData(productName)));
+                }
+            } else {
+                products.push(...(await getData(productType)));
             }
-        } else {
-            products.push(...(await getData(product)));
+            const metadata = {
+                prices: { ...getMinMaxPrices(products) },
+                brands: [...getBrandNames(products)],
+            };
+            res.status(200).json({ metadata, products });
+        } catch (error) {
+            res.status(500).end();
         }
-        const metadata = {
-            prices: { ...getMinMaxPrices(products) },
-            brands: [...getBrandNames(products)],
-        };
-        res.status(200).json({ metadata, products: [...products] });
-    } catch (error) {
+    } else {
         res.status(400).end();
     }
 }

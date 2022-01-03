@@ -51,6 +51,7 @@ function Header({ openMenu, openCart }) {
                                     : logo_black
                             }
                             layout={'fill'}
+                            alt={'PC Components'}
                             priority={true}
                         />
                     </div>
