@@ -58,7 +58,20 @@ export default function Product({ data }) {
     );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getStaticPaths() {
+    return {
+        paths: [
+            { params: { product: 'allproducts' } },
+            { params: { product: 'processors' } },
+            { params: { product: 'graphicscards' } },
+            { params: { product: 'motherboards' } },
+            { params: { product: 'memories' } },
+        ],
+        fallback: false,
+    };
+}
+
+export async function getStaticProps({ params }) {
     const res = await fetch(
         process.env.NEXTAUTH_URL + '/api/data/' + params.product
     );
