@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import ItemDisplay from '../../components/productDisplay/ItemDisplay';
 import Head from 'next/head';
 import FilterProducts from '../../components/productDisplay/FilterProducts';
+import useSWR from 'swr';
 
 const filterData = (data, minPrice, maxPrice, selectedBrands) => {
     return data?.filter(
@@ -13,7 +14,9 @@ const filterData = (data, minPrice, maxPrice, selectedBrands) => {
     );
 };
 
-export default function Product({ data }) {
+const fetcher = url => fetch(url).then(res => res.json());
+
+export default function Product() {
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(0);
     const [allBrands, setAllBrands] = useState([]);
@@ -21,6 +24,8 @@ export default function Product({ data }) {
 
     const router = useRouter();
     const { product } = router.query;
+
+    const { data, error } = useSWR(`/api/data/${product}`, fetcher);
 
     useEffect(() => {
         if (data) {
@@ -56,30 +61,4 @@ export default function Product({ data }) {
             </div>
         </>
     );
-}
-
-export async function getStaticPaths() {
-    return {
-        paths: [
-            { params: { product: 'allproducts' } },
-            { params: { product: 'processors' } },
-            { params: { product: 'graphicscards' } },
-            { params: { product: 'motherboards' } },
-            { params: { product: 'memories' } },
-        ],
-        fallback: false,
-    };
-}
-
-export async function getStaticProps({ params }) {
-    const res = await fetch(
-        process.env.NEXTAUTH_URL + '/api/data/' + params.product
-    );
-    const data = await res.json();
-
-    return {
-        props: {
-            data,
-        },
-    };
 }
