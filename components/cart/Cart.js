@@ -4,10 +4,10 @@ import CartItem from './CartItem';
 import { v4 as uuid } from 'uuid';
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
-import { getProducts } from '../../features/cart/cartItemSlice';
+import { getCart } from '../../features/cart/cartItemsSlice';
 
 export default function Cart({ closeCart }) {
-    const cartItems = useSelector(getProducts);
+    const cartItems = useSelector(getCart);
 
     const cartAnimation = {
         hidden: {

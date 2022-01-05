@@ -6,9 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Popup from './Popup';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPopupMessage } from '../features/popup/popupSlice';
-import { setCart } from '../features/cart/cartItemSlice';
+import { fetchCart } from '../features/cart/cartItemsSlice';
 import { useSession } from 'next-auth/react';
-import axios from 'axios';
 
 function Layout({ children }) {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -40,10 +39,9 @@ function Layout({ children }) {
         }
     }, [message.messageCount]);
 
-    useEffect(async () => {
+    useEffect(() => {
         if (session) {
-            const cloudData = await axios.get(`/api/user/${session.user.id}`);
-            dispatch(setCart(cloudData.data.cart));
+            dispatch(fetchCart({ userId: session.user.id }));
         }
     }, [session]);
 

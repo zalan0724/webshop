@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-    addToCart,
-    getProducts,
-    setCart,
-} from '../../features/cart/cartItemSlice';
+import { useDispatch } from 'react-redux';
+import { addAsyncCart, addToCart } from '../../features/cart/cartItemsSlice';
 import { addToCompare } from '../../features/compare/comparedItemsSlice';
 import { addMessage } from '../../features/popup/popupSlice';
 import { motion } from 'framer-motion';
@@ -15,34 +11,29 @@ import {
     ScaleIcon,
 } from '@heroicons/react/outline';
 import { useSession } from 'next-auth/react';
-import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 function ProductCard({ product }) {
     const dispatch = useDispatch();
     const { data: session } = useSession();
-    const cart = useSelector(getProducts);
 
     const router = useRouter();
     const { productType } = router.query;
 
     const [more, setMore] = useState(false);
 
-    const addItemToCart = async item => {
+    const addItemToCart = async product => {
         if (session) {
-            const cloudData = await axios.put(`/api/user/${session.user.id}`, {
-                cart: [...cart, item],
-            });
-            dispatch(setCart(cloudData.data.cart));
+            dispatch(addAsyncCart({ userId: session.user.id, product }));
         } else {
-            dispatch(addToCart(item));
+            dispatch(addToCart(product));
         }
         dispatch(addMessage('Item added to the cart'));
     };
 
-    const addItemToCompare = item => {
-        dispatch(addToCompare({ ...item }));
+    const addItemToCompare = product => {
+        dispatch(addToCompare({ ...product }));
         dispatch(addMessage('Item added to compare'));
     };
 

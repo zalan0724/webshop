@@ -1,30 +1,24 @@
 import React from 'react';
 import Image from 'next/image';
 import { XIcon } from '@heroicons/react/outline';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
-    getProducts,
     removeFromCart,
-    setCart,
-} from '../../features/cart/cartItemSlice';
+    removeAsyncCart,
+} from '../../features/cart/cartItemsSlice';
 import { useSession } from 'next-auth/react';
-import axios from 'axios';
 
 function CartItem({ product }) {
     const dispatch = useDispatch();
     const { data: session } = useSession();
-    const cart = useSelector(getProducts);
 
-    const removeItemFromCart = async index => {
+    const removeItemFromCart = productIndex => {
         if (session) {
-            const oldCart = [...cart];
-            oldCart.splice(index, 1);
-            const cloudData = await axios.put(`/api/user/${session.user.id}`, {
-                cart: oldCart,
-            });
-            dispatch(setCart(cloudData.data.cart));
+            dispatch(
+                removeAsyncCart({ userId: session.user.id, productIndex })
+            );
         } else {
-            dispatch(removeFromCart(index));
+            dispatch(removeFromCart(productIndex));
         }
     };
 

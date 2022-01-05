@@ -23,8 +23,10 @@ module.exports = {
                 hoverUp: 'hoverUp 0.5s ease-out',
             },
             fontFamily: {
-                quicksand: ['Quicksand'],
-                exo: ['Exo'],
+                sans: ['Roboto', 'Quicksand', 'Exo', 'sans-serif'],
+                quicksand: ['Quicksand', 'sans-serif'],
+                exo: ['Exo', 'sans-serif'],
+                roboto: ['Roboto', 'sans-serif'],
             },
         },
     },

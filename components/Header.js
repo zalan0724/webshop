@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import logo_white from '../assets/logo_white.svg';
 import logo_black from '../assets/logo_black.svg';
-import { getCartLength } from '../features/cart/cartItemSlice';
+import { getCartLength } from '../features/cart/cartItemsSlice';
 import Indicator from './Indicator';
 import { getComparedItemsLength } from '../features/compare/comparedItemsSlice';
 

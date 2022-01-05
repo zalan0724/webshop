@@ -29,6 +29,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                         href="https://fonts.googleapis.com/css2?family=Exo:wght@300;500;600;900&display=swap"
                         rel="stylesheet"
                     />
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;600;900&display=swap"
+                        rel="stylesheet"
+                    />
                 </Head>
                 <Layout>
                     <Component {...pageProps} />

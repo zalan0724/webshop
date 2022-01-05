@@ -28,7 +28,7 @@ function Product() {
                         }>
                         <div
                             className={
-                                'relative h-4/5 hover:h-full duration-200  aspect-square'
+                                'relative h-4/5 hover:h-full duration-200 aspect-square'
                             }>
                             <Image
                                 src={data.Link}
@@ -40,27 +40,31 @@ function Product() {
                     </div>
                     <div
                         className={
-                            'bg-white relative col-span-1 shadow-lg rounded-2xl font-quicksand text-2xl p-6'
+                            'bg-white relative col-span-1 shadow-lg rounded-2xl font-roboto text-xl p-6'
                         }>
                         <p className={'font-exo font-bold text-4xl mb-8'}>
                             {data.Name}
                         </p>
-                        <div className={'relative'}>
+                        <div className={'relative overflow-y-auto'}>
                             {Object.keys(data)
                                 .filter(
                                     key => !['Link', 'id', 'Name'].includes(key)
                                 )
                                 .map(param => (
-                                    <p key={uuid()} className={'my-4 ml-4'}>
+                                    <p
+                                        key={uuid()}
+                                        className={
+                                            'my-1 py-1 border-box border-t border-gray-200 ml-4'
+                                        }>
                                         <span
                                             className={
-                                                'text-slate-800 font-thin'
+                                                'text-slate-900 font-light'
                                             }>
                                             {param}:{' '}
                                         </span>
                                         <span
                                             className={
-                                                'text-slate-900 font-bold'
+                                                'text-black font-medium'
                                             }>
                                             {data[param]}
                                         </span>
