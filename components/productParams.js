@@ -59,7 +59,7 @@ const getProductParams = (productType, product) => {
         case 'processors':
             return formatProcessorData(product);
         default:
-            return {};
+            return { vaa: 'vaa' };
     }
 };
 

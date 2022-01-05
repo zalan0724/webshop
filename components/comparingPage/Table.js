@@ -1,19 +1,19 @@
 import React from 'react';
 import Image from 'next/image';
 import { v4 as uuid } from 'uuid';
-import getProductParams from '../../productParams';
+import getProductParams from '../productParams';
 
 export const getComparedItemsParams = products => {
     const keys = [];
     products
-        .map(product => getProductParams(product.collection, product))
+        .map(product => getProductParams(product.productType, product))
         .forEach(product => keys.push(...Object.keys(product)));
 
     return [...new Set(keys)];
 };
 
 function Table({ products }) {
-    const removedParams = ['Price'];
+    const removedParams = ['Price', 'Link'];
 
     const filteredParams = [
         ...getComparedItemsParams(products).filter(
@@ -23,7 +23,7 @@ function Table({ products }) {
 
     const filteredProducts = [
         ...products.map(product =>
-            getProductParams(product.collection, product)
+            getProductParams(product.productType, product)
         ),
     ];
 

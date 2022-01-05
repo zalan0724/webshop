@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import axios from 'axios';
 import Image from 'next/image';
-import { v4 as uuid } from 'uuid';
+import getProductParams from '../../components/productParams';
+import Details from '../../components/detailsPage/Details';
 
 function Product() {
     const router = useRouter();
@@ -31,47 +32,16 @@ function Product() {
                                 'relative h-4/5 hover:h-full duration-200 aspect-square'
                             }>
                             <Image
-                                src={data.Link}
+                                src={data.link}
                                 layout={'fill'}
                                 quality={100}
                                 priority={true}
                             />
                         </div>
                     </div>
-                    <div
-                        className={
-                            'bg-white relative col-span-1 shadow-lg rounded-2xl font-roboto text-xl p-6'
-                        }>
-                        <p className={'font-exo font-bold text-4xl mb-8'}>
-                            {data.Name}
-                        </p>
-                        <div className={'relative overflow-y-auto'}>
-                            {Object.keys(data)
-                                .filter(
-                                    key => !['Link', 'id', 'Name'].includes(key)
-                                )
-                                .map(param => (
-                                    <p
-                                        key={uuid()}
-                                        className={
-                                            'my-1 py-1 border-box border-t border-gray-200 ml-4'
-                                        }>
-                                        <span
-                                            className={
-                                                'text-slate-900 font-light'
-                                            }>
-                                            {param}:{' '}
-                                        </span>
-                                        <span
-                                            className={
-                                                'text-black font-medium'
-                                            }>
-                                            {data[param]}
-                                        </span>
-                                    </p>
-                                ))}
-                        </div>
-                    </div>
+                    <Details
+                        product={getProductParams(data.productType, data)}
+                    />
                 </>
             )}
         </div>

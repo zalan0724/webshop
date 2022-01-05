@@ -1,5 +1,4 @@
 import { db } from '../../../utils/db/index';
-import getProductParams from '../../../productParams';
 
 function capitalizeFirstLetter(string) {
     return string[0].toUpperCase() + string.slice(1);
@@ -19,7 +18,8 @@ export default async function handler(req, res) {
             } else {
                 res.status(200).json({
                     id: doc.id,
-                    ...getProductParams(product[0], doc.data()),
+                    productType: product[0],
+                    ...doc.data(),
                 });
             }
         } catch (e) {

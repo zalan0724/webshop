@@ -11,7 +11,9 @@ const getAllProducts = () => {
 const getData = async productType => {
     const products = [];
     const docs = await db.collection(capitalizeFirstLetter(productType)).get();
-    docs.forEach(doc => products.push({ id: doc.id, ...doc.data() }));
+    docs.forEach(doc =>
+        products.push({ id: doc.id, productType, ...doc.data() })
+    );
     return products;
 };
 
