@@ -19,13 +19,13 @@ function Product() {
     return (
         <div
             className={
-                'grid grid-cols-3 bg-gray-100 h-screen w-screen box-border px-6 md:px-12 pb-6 md:pb-12 pt-24 relative gap-8'
+                'grid md:grid-cols-3 grid-rows-2 md:grid-rows-1 bg-gray-100 md:h-screen w-screen box-border px-6 md:px-12 pb-6 md:pb-12 pt-24 relative gap-8'
             }>
             {data && (
                 <>
                     <div
                         className={
-                            'flex justify-center items-center h-ful col-span-2 p-6'
+                            'flex justify-center items-center h-ful md:col-span-2 p-6'
                         }>
                         <div
                             className={

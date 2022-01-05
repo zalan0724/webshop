@@ -5,7 +5,7 @@ function Details({ product }) {
     return (
         <div
             className={
-                'bg-white relative col-span-1 shadow-lg rounded-2xl font-roboto text-xl p-6'
+                'bg-white relative mdcol-span-1 shadow-lg rounded-2xl font-roboto text-xl p-6'
             }>
             <p className={'font-exo font-bold text-4xl mb-8'}>{product.Name}</p>
             <div className={'relative overflow-y-auto'}>

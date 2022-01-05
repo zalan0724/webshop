@@ -28,7 +28,7 @@ function Table({ products }) {
     ];
 
     return (
-        <table className={'w-full h-full font-quicksand'}>
+        <table className={'w-full h-full font-roboto'}>
             <thead>
                 <tr>
                     <th className={'w-32'} />
