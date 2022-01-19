@@ -58,6 +58,7 @@ export default function Cart({ closeCart }) {
                             <CartItem
                                 product={{ index, ...product }}
                                 key={uuid()}
+                                closeCart={closeCart}
                             />
                         ))}
                     </ul>
