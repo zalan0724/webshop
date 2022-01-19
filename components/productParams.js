@@ -7,7 +7,7 @@ const formatGraphicscardData = product => {
         'HDMI Ports': product.hdmi || 0,
         'Display Ports': product.display || 0,
         'Mini Display Ports': product.minidisplay || 0,
-        TDP: product.tdp,
+        TDP: product.tdp + ' W',
         Price: '$ ' + product.price,
         Link: product.link,
     };
@@ -48,6 +48,27 @@ const formatProcessorData = product => {
     };
 };
 
+const formatCaseData = product => {
+    const formatMotherboards = array => {
+        let string = '';
+        array.forEach(type => {
+            string += type + ', ';
+        });
+        return string.slice(0, -2);
+    };
+
+    return {
+        Name: product.brand + ' ' + product.name,
+        Type: product.type,
+        Motherboards: formatMotherboards(product.motherboards),
+        'Expansion Slots:': product.expSlots,
+        'Internal 2.5" Bays': product.bays25,
+        'Internal 3.5" Bays': product.bays35,
+        Price: '$ ' + product.price,
+        Link: product.link,
+    };
+};
+
 const getProductParams = (productType, product) => {
     switch (productType) {
         case 'graphicscards':
@@ -58,8 +79,10 @@ const getProductParams = (productType, product) => {
             return formatMemoryData(product);
         case 'processors':
             return formatProcessorData(product);
+        case 'cases':
+            return formatCaseData(product);
         default:
-            return { vaa: 'vaa' };
+            return { Error: 'Not available' };
     }
 };
 

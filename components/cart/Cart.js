@@ -1,8 +1,8 @@
 import React from 'react';
-import { ChevronDoubleRightIcon } from '@heroicons/react/outline';
 import CartItem from './CartItem';
 import { v4 as uuid } from 'uuid';
 import { motion } from 'framer-motion';
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import { useSelector } from 'react-redux';
 import { getCart } from '../../features/cart/cartItemsSlice';
 
@@ -21,7 +21,7 @@ export default function Cart({ closeCart }) {
     return (
         <motion.div
             className={
-                'fixed top-0 right-0 z-30 w-screen md:w-1/2 xl:w-1/3 h-screen'
+                'fixed top-0 right-0 z-40 w-screen md:w-1/2 xl:w-1/3 h-screen'
             }
             variants={cartAnimation}
             initial={'hidden'}
@@ -30,7 +30,7 @@ export default function Cart({ closeCart }) {
             transition={{ duration: 0.3, ease: 'easeOut' }}>
             <div
                 className={
-                    'flex flex-col justify-between box-border items-center md:items-start w-full h-screen bg-gray-50 p-8 relative border-2 border-gray-100'
+                    'flex flex-col justify-between box-border items-center md:items-start w-full h-screen bg-stone-100 p-8 relative border-2 border-gray-100'
                 }>
                 <div
                     className={
@@ -38,15 +38,17 @@ export default function Cart({ closeCart }) {
                     }>
                     <div
                         className={
-                            'flex justify-between w-full items-center pb-2 border-b-2 border-b-black'
+                            'flex justify-between w-full items-center pb-2 border-b-2 border-b-stone-300'
                         }>
                         <p className={'text-black text-4xl font-bold'}>Cart</p>
-                        <ChevronDoubleRightIcon
-                            className={
-                                'h-10 w-10 text-black navButton cursor-pointer'
-                            }
-                            onClick={closeCart}
-                        />
+                        <div className={'navButton'}>
+                            <ArrowBackIosNewOutlinedIcon
+                                className={
+                                    'text-3xl text-black rotate-180 cursor-pointer'
+                                }
+                                onClick={closeCart}
+                            />
+                        </div>
                     </div>
                     <ul
                         className={
@@ -62,7 +64,7 @@ export default function Cart({ closeCart }) {
                 </div>
                 <div
                     className={
-                        'flex justify-between border-t-2 border-black w-full text-black pt-2'
+                        'flex justify-between border-t-2 border-stone-300 w-full text-black pt-2'
                     }>
                     <p className={'text-2xl'}>
                         $

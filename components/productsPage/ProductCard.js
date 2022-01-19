@@ -1,147 +1,82 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { useDispatch } from 'react-redux';
-import { addAsyncCart, addToCart } from '../../features/cart/cartItemsSlice';
-import { addToCompare } from '../../features/compare/comparedItemsSlice';
-import { addMessage } from '../../features/popup/popupSlice';
-import { motion } from 'framer-motion';
-import {
-    ArrowDownIcon,
-    InformationCircleIcon,
-    ScaleIcon,
-} from '@heroicons/react/outline';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import DesktopWindowsOutlinedIcon from '@mui/icons-material/DesktopWindowsOutlined';
+import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
+import { useDispatch } from 'react-redux';
+import { useSession } from 'next-auth/react';
+import { addProductToCart, addProductToCompare } from '../productActions';
 
 function ProductCard({ product }) {
     const dispatch = useDispatch();
     const { data: session } = useSession();
 
-    const router = useRouter();
-    const { productType } = router.query;
-
-    const [more, setMore] = useState(false);
-
-    const addItemToCart = async product => {
-        if (session) {
-            dispatch(addAsyncCart({ userId: session.user.id, product }));
-        } else {
-            dispatch(addToCart(product));
-        }
-        dispatch(addMessage('Item added to the cart'));
-    };
-
-    const addItemToCompare = product => {
-        dispatch(addToCompare({ ...product }));
-        dispatch(addMessage('Item added to compare'));
-    };
-
-    const arrowButtonAnimation = {
-        down: {
-            rotate: 0,
-        },
-        up: {
-            rotate: 180,
-        },
-    };
-
-    const moreButtonsAnimation = {
-        addToCart: {
-            top: 0,
-        },
-        more: {
-            top: '-114%',
-        },
-    };
-
     return (
         <div
             className={
-                'flex flex-col justify-between items-start w-64 h-80 bg-white relative p-4 shadow-lg rounded-2xl hover:shadow-2xl duration-200 cursor-pointer box-border mt-24 animate-hoverUp'
+                'flex transition-all ease-out bg-stone-100 hover:bg-gradient-to-tr hover:from-stone-200 hover:via-stone-200 hover:to-stone-300 hover:shadow-lg rounded-lg w-full h-40 xl:h-60 p-4 gap-x-4 box-border'
             }>
-            <Link href={`/details/${productType}/${product.id}`}>
-                <div className={'relative h-full w-full'}>
-                    <div
-                        className={
-                            'relative flex justify-center w-full h-20 select-none'
-                        }>
-                        <div className={'absolute w-4/5 aspect-square -top-28'}>
-                            <div className={'relative h-full w-full'}>
-                                <Image
-                                    src={product.link}
-                                    layout={'fill'}
-                                    quality={50}
-                                    priority={true}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <p
-                        className={
-                            'font-extrabold text-xl text-slate-800 font-exo'
-                        }>
-                        {product.brand + ' ' + product.name}
-                    </p>
-                    <p className={'text-lg text-slate-700'}>${product.price}</p>
-                </div>
-            </Link>
-
-            <div className={'flex justify-end w-full h-14 gap-x-4 relative'}>
+            <Link href={`/details/${product.productType}/${product.id}`}>
                 <div
                     className={
-                        'overflow-hidden relative w-full h-14 box-border'
+                        'relative h-full aspect-square relative bg-stone-200 p-2 box-border cursor-pointer rounded-lg'
                     }>
-                    <motion.div
-                        className={
-                            'absolute flex flex-wrap h-16 box-border w-full'
-                        }
-                        variants={moreButtonsAnimation}
-                        animate={more ? 'more' : 'addToCart'}
-                        transition={{ duration: 0.2, ease: 'easeOut' }}>
-                        <button
-                            className={
-                                'relative w-full h-14 border-black border-2 rounded-xl text-black font-light text-lg bg-white shadow-md duration-200 hover:bg-black hover:text-white font-quicksand mb-2'
-                            }
-                            onClick={async () => {
-                                await addItemToCart({ ...product });
-                            }}>
-                            Add to Cart
-                        </button>
-                        <div
-                            className={
-                                'relative flex h-14 w-full justify-around'
-                            }>
-                            <button
-                                className={
-                                    'flex w-14 h-10 m-2 box-border rounded-lg bg-black productButton items-center justify-center'
-                                }>
-                                <InformationCircleIcon
-                                    className={'h-3/5 text-white'}
-                                />
-                            </button>
-                            <button
-                                className={
-                                    'flex w-14 h-10 m-2 box-border rounded-lg bg-black productButton items-center justify-center'
-                                }
-                                onClick={() => {
-                                    addItemToCompare({ ...product });
-                                }}>
-                                <ScaleIcon className={'h-3/5 text-white'} />
-                            </button>
-                        </div>
-                    </motion.div>
+                    <div className={'w-full h-full relative'}>
+                        <Image
+                            src={product.link}
+                            layout={'fill'}
+                            priority={true}
+                            quality={10}
+                        />
+                    </div>
                 </div>
-                <motion.button
-                    variants={arrowButtonAnimation}
-                    animate={more ? 'up' : 'down'}
-                    transition={{ duration: 0.1, ease: 'easeOut' }}
+            </Link>
+            <div className={'flex flex-col justify-between w-full'}>
+                <Link href={`/details/${product.productType}/${product.id}`}>
+                    <div className={'cursor-pointer h-full'}>
+                        <p className={'text-2xl font-exo'}>
+                            {product.brand.toUpperCase()}
+                        </p>
+                        <p className={'text-xl font-exo'}>{product.name}</p>
+                        <p className={'text-lg font-exo text-slate-600'}>
+                            {'$' + product.price}
+                        </p>
+                    </div>
+                </Link>
+                <div
                     className={
-                        'h-full rounded-lg bg-white text-black font-light duration-200 hover:scale-110 relative'
-                    }
-                    onClick={() => setMore(!more)}>
-                    <ArrowDownIcon className={'h-3/5'} />
-                </motion.button>
+                        'hidden lg:flex flex-row w-full justify-start gap-x-2 items-center'
+                    }>
+                    <button
+                        className={
+                            'flex justify-center items-center h-10 text-md xl:text-xl pr-2 text-slate-900 border-stone-300 xl:border-r'
+                        }
+                        title={'Add to cart'}
+                        onClick={() =>
+                            addProductToCart(session, product, dispatch)
+                        }>
+                        ADD TO CART
+                    </button>
+                    <button
+                        className={
+                            'hidden xl:flex items-center justify-center h-10 aspect-square pr-2 border-stone-300 border-r '
+                        }
+                        title={'Add to compare'}
+                        onClick={() => addProductToCompare(product, dispatch)}>
+                        <CompareArrowsOutlinedIcon
+                            className={'text-3xl text-slate-900'}
+                        />
+                    </button>
+                    <button
+                        className={
+                            'relative hidden xl:flex items-center justify-center h-10 aspect-square'
+                        }
+                        title={'Add to PC Builder'}>
+                        <DesktopWindowsOutlinedIcon
+                            className={'text-3xl text-slate-900 opacity-25'}
+                        />
+                    </button>
+                </div>
             </div>
         </div>
     );

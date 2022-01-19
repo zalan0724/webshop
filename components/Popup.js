@@ -1,27 +1,20 @@
-import React, { useEffect } from 'react';
+import React, from 'react';
 import { motion } from 'framer-motion';
 
 function Popup({ message }) {
     const popupAnimation = {
         hidden: {
-            y: '100%',
+            bottom: '-10%',
         },
         visible: {
-            y: 0,
+            bottom: 0,
         },
     };
-
-    useEffect(() => {
-        document.body.style.overflowY = 'hidden';
-        return () => {
-            document.body.style.overflowY = 'auto';
-        };
-    });
 
     return (
         <motion.div
             className={
-                'flex justify-center items-center absolute justify-self-center bg-transparent bottom-0 h-20 p-4 w-screen z-10'
+                'flex justify-center items-center fixed justify-self-center bg-transparent -bottom-20 h-20 p-4 w-screen z-10'
             }
             variants={popupAnimation}
             initial={'hidden'}
@@ -30,7 +23,7 @@ function Popup({ message }) {
             transition={{ duration: 0.3, ease: 'easeOut' }}>
             <div
                 className={
-                    'flex justify-center items-center w-full md:w-96 bg-white rounded-full p-2 m-2 md:shadow-lg border box-border border-gray-100'
+                    'flex justify-center items-center w-full md:w-96 bg-stone-100 rounded-full p-2 m-2 md:shadow-lg border box-border border-stone-200'
                 }>
                 {message}
             </div>

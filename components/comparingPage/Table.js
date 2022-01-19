@@ -44,6 +44,7 @@ function Table({ products }) {
                                     layout={'fill'}
                                     alt={product.id}
                                     priority={true}
+                                    title={product.brand + ' ' + product.name}
                                 />
                             </div>
                         </th>

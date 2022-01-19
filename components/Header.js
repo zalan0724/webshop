@@ -1,12 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-    MenuIcon,
-    ScaleIcon,
-    ShoppingCartIcon,
-    DesktopComputerIcon,
-} from '@heroicons/react/outline';
+import DesktopWindowsOutlinedIcon from '@mui/icons-material/DesktopWindowsOutlined';
+import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
+import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import logo_white from '../assets/logo_white.svg';
@@ -27,13 +25,13 @@ function Header({ openMenu, openCart }) {
                 className={
                     'flex items-center justify-start h-full space-x-8 relative'
                 }>
-                <div>
+                <div title={'Menu'} className={'navButton'}>
                     <MenuIcon
-                        className={`relative h-10 w-10 ${
+                        className={`relative text-4xl ${
                             router.pathname === '/'
                                 ? 'text-white'
                                 : 'text-black'
-                        } cursor-pointer navButton`}
+                        } cursor-pointer`}
                         onClick={() => {
                             openMenu(true);
                         }}
@@ -43,7 +41,8 @@ function Header({ openMenu, openCart }) {
                     <div
                         className={
                             'relative h-full w-96 hidden md:flex cursor-pointer'
-                        }>
+                        }
+                        title={'PC Component Home'}>
                         <Image
                             src={
                                 router.pathname === '/'
@@ -58,36 +57,48 @@ function Header({ openMenu, openCart }) {
                 </Link>
             </div>
             <div className={'relative flex justify-end items-center space-x-8'}>
-                <div className={'relative flex justify-end items-center'}>
-                    <DesktopComputerIcon
-                        className={`relative h-10 w-10 ${
+                <div
+                    className={
+                        'relative flex justify-end items-center navButton'
+                    }
+                    title={'PC Builder'}>
+                    <DesktopWindowsOutlinedIcon
+                        className={`relative text-4xl opacity-25 ${
                             router.pathname === '/'
                                 ? 'text-white'
                                 : 'text-black'
-                        } stroke-1 cursor-pointer stroke-1 navButton`}
+                        } cursor-pointer`}
                     />
                 </div>
                 <Link href={'/compare'}>
-                    <div className={'relative flex justify-end items-center'}>
-                        <ScaleIcon
-                            className={`relative h-10 w-10 ${
+                    <div
+                        className={
+                            'relative flex justify-end items-center navButton'
+                        }
+                        title={'Compare products'}>
+                        <CompareArrowsOutlinedIcon
+                            className={`relative text-4xl ${
                                 router.pathname === '/'
                                     ? 'text-white'
                                     : 'text-black'
-                            } stroke-1 cursor-pointer stroke-1 navButton`}
+                            } cursor-pointer`}
                         />
                         {comparedLength > 0 && (
                             <Indicator number={comparedLength} />
                         )}
                     </div>
                 </Link>
-                <div className={'relative flex justify-end items-center'}>
-                    <ShoppingCartIcon
-                        className={`relative h-10 w-10 ${
+                <div
+                    className={
+                        'relative flex justify-end items-center navButton'
+                    }
+                    title={'Cart'}>
+                    <ShoppingCartOutlinedIcon
+                        className={`relative text-4xl ${
                             router.pathname === '/'
                                 ? 'text-white'
                                 : 'text-black'
-                        } stroke-1 cursor-pointer stroke-1 navButton`}
+                        } cursor-pointer`}
                         onClick={() => {
                             openCart(true);
                         }}

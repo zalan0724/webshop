@@ -1,5 +1,6 @@
 import React from 'react';
-import { ChevronDoubleLeftIcon, LogoutIcon } from '@heroicons/react/outline';
+import LogoutIcon from '@mui/icons-material/Logout';
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import Link from 'next/link';
 import Image from 'next/image';
 import { v4 as uuid } from 'uuid';
@@ -46,10 +47,12 @@ export default function Menu({ closeMenu }) {
                 className={`flex flex-col justify-center items-center md:items-start h-screen w-full bg-black p-12 relative text-white `}>
                 <div
                     className={'flex relative w-full justify-end items-center'}>
-                    <ChevronDoubleLeftIcon
-                        className={'h-10 w-10 navButton cursor-pointer'}
-                        onClick={closeMenu}
-                    />
+                    <div className={'navButton'}>
+                        <ArrowBackIosNewOutlinedIcon
+                            className={'text-3xl cursor-pointer'}
+                            onClick={closeMenu}
+                        />
+                    </div>
                 </div>
                 <ul
                     className={
@@ -74,16 +77,24 @@ export default function Menu({ closeMenu }) {
                         </li>
                     </Link>
                     {getProducts().map(product => {
+                        const available = !['Power Supplies'].includes(product);
+
                         return (
                             <Link
-                                href={`/products/${product
-                                    .replace(' ', '')
-                                    .toLowerCase()}`}
+                                href={
+                                    available
+                                        ? `/products/${product
+                                              .replace(' ', '')
+                                              .toLowerCase()}`
+                                        : ''
+                                }
                                 key={uuid()}>
                                 <li
-                                    className={
-                                        'navButton md:ml-8 cursor-pointer font-exo font-light'
-                                    }
+                                    className={`md:ml-8 font-exo font-light ${
+                                        !available
+                                            ? 'opacity-25'
+                                            : 'navButton cursor-pointer'
+                                    }`}
                                     onClick={closeMenu}>
                                     {product}
                                 </li>
@@ -109,12 +120,12 @@ export default function Menu({ closeMenu }) {
                                 {session.user.name}
                             </p>
                         </div>
-                        <LogoutIcon
-                            className={
-                                'text-white w-8 h-8 cursor-pointer navButton'
-                            }
-                            onClick={() => signOut()}
-                        />
+                        <div className={'navButton'}>
+                            <LogoutIcon
+                                className={'text-white text-4xl cursor-pointer'}
+                                onClick={() => signOut()}
+                            />
+                        </div>
                     </div>
                 ) : (
                     <Link href={'/auth/signin'}>
