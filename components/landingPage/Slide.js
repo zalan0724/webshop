@@ -1,6 +1,7 @@
 import React from 'react';
+import Link from 'next/link';
 
-function Slide({ bgVariant, mainText, subText, textWidth }) {
+function Slide({ bgVariant, mainText, subText, textWidth, link }) {
     return (
         <div className={bgVariant} id={bgVariant}>
             <div className={textWidth}>
@@ -11,12 +12,14 @@ function Slide({ bgVariant, mainText, subText, textWidth }) {
                     {subText}
                 </p>
             </div>
-            <button
-                className={
-                    'text-3xl border-white border-2 w-56 h-16 text-center hover:bg-white hover:text-black hover:font-bold duration-200 ease-out'
-                }>
-                Purchase Now
-            </button>
+            <Link href={link}>
+                <button
+                    className={
+                        'text-3xl border-white border-2 w-56 h-16 text-center hover:bg-white hover:text-black hover:font-bold duration-200 ease-out'
+                    }>
+                    Purchase Now
+                </button>
+            </Link>
         </div>
     );
 }

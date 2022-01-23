@@ -61,7 +61,7 @@ const formatCaseData = product => {
         Name: product.brand + ' ' + product.name,
         Type: product.type,
         Motherboards: formatMotherboards(product.motherboards),
-        'Expansion Slots:': product.expSlots,
+        'Expansion Slots': product.expSlots,
         'Internal 2.5" Bays': product.bays25,
         'Internal 3.5" Bays': product.bays35,
         Price: '$ ' + product.price,

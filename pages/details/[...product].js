@@ -65,7 +65,7 @@ function Product() {
                             />
                             <div
                                 className={
-                                    'grid grid-cols-4 gap-4 w-full mt-4'
+                                    'grid grid-cols-4 gap-4 w-full my-4 px-6'
                                 }>
                                 <button
                                     className={

@@ -11,15 +11,15 @@ function Compare() {
         <>
             <Head>
                 <title>Compare Parts</title>
-                <meta name="theme-color" content="#FFFFFF" />
+                <meta name="theme-color" content="#f5f5f4" />
             </Head>
             <div
                 className={
-                    'flex justify-center items-center w-screen h-screen bg-gray-100 pt-24 pb-4 px-6 md:px-12 box-border'
+                    'flex justify-center items-center w-screen h-screen bg-stone-100 pt-24 pb-4 px-6 md:px-12 box-border'
                 }>
                 <div
                     className={
-                        'flex justify-center items-center w-full h-full bg-white p-8 box-border rounded-lg overflow-auto shadow-lg'
+                        'flex justify-center items-center w-full h-full p-8 bg-stone-100 box-border rounded-lg overflow-auto'
                     }>
                     {products.length === 0 ? (
                         'No details selected'

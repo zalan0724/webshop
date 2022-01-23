@@ -28,7 +28,7 @@ function Table({ products }) {
     ];
 
     return (
-        <table className={'w-full h-full font-roboto'}>
+        <table className={'w-full h-full'}>
             <thead>
                 <tr>
                     <th className={'w-32'} />
@@ -36,7 +36,7 @@ function Table({ products }) {
                         <th
                             key={uuid()}
                             className={
-                                'border-l border-gray-200 border-collapse px-4 text-left'
+                                'border-l border-stone-200 border-collapse px-4 text-left'
                             }>
                             <div className={'relative aspect-square h-24'}>
                                 <Image
@@ -55,15 +55,15 @@ function Table({ products }) {
                 {filteredParams.map((param, index) => (
                     <tr
                         key={uuid()}
-                        className={`${
-                            index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'
-                        }`}>
+                        className={
+                            index % 2 === 0 ? 'bg-stone-100' : 'bg-stone-200'
+                        }>
                         <th className={'w-32 font-extrabold'}>{param}</th>
                         {filteredProducts.map(product => (
                             <th
                                 key={uuid()}
                                 className={
-                                    'border-l border-gray-200 text-left px-4 font-medium'
+                                    'border-l border-stone-200 text-left px-4 font-medium'
                                 }>
                                 {product[param]}
                             </th>

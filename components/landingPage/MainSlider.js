@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Slide from './Slide';
+import { v4 as uuid } from 'uuid';
 
 const Slides = [
     <Slide
@@ -7,21 +8,24 @@ const Slides = [
         mainText={'UNLEASH THE BEAST'}
         subText={'Check the newest RTX 30 Series GPUs'}
         textWidth={'md:w-3/4'}
-        key={1}
+        link={'/products/graphicscards'}
+        key={uuid()}
     />,
     <Slide
         bgVariant={'slideTwo'}
         mainText={'BREAK ALL LIMITS'}
         subText={'Radeon™ RX 6600 XT Series is available now'}
         textWidth={'md:w-1/2'}
-        key={2}
+        link={'/products/graphicscards'}
+        key={uuid()}
     />,
     <Slide
         bgVariant={'slideThree'}
         mainText={'THE ULTIMATE MONSTER'}
-        subText={'Check the newest RTX 30 Series GPUs'}
+        subText={'The newest motherboards are ready to win'}
         textWidth={'md:w-3/4'}
-        key={3}
+        link={'/products/motherboards'}
+        key={uuid()}
     />,
 ];
 
